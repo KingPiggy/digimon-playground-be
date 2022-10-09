@@ -1,0 +1,106 @@
+buildscript {
+
+	ext {
+		springBootVersion = '2.5.11'
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+	}
+
+}
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'idea'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	group = 'com.kingpiggy.digimon.pg'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = '11'
+	targetCompatibility = '11'
+	compileJava.options.encoding = 'UTF-8'
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter'
+		implementation 'org.springframework.boot:spring-boot-starter-batch'
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+		implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+		implementation 'org.springframework.boot:spring-boot-starter-security'
+		implementation 'org.springframework.boot:spring-boot-starter-validation'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+
+		//QueryDSL
+		implementation "com.querydsl:querydsl-core"
+		implementation "com.querydsl:querydsl-jpa"
+		implementation "com.querydsl:querydsl-apt"
+		annotationProcessor(
+				"com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa",
+				"javax.persistence:javax.persistence-api",
+				"javax.annotation:javax.annotation-api")
+
+		// Mybatis
+		implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+
+		// MySql
+		implementation 'mysql:mysql-connector-java'
+
+		// H2 DB
+		runtimeOnly 'com.h2database:h2'
+
+		// Lombok
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+
+		// Test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+
+	// QueryDSL
+	def querydslSrcDir = 'src/main/generated'
+	sourceSets { main.java.srcDirs += [ querydslSrcDir ] }
+	tasks.withType(JavaCompile) { options.annotationProcessorGeneratedSourcesDirectory = file(querydslSrcDir) }
+	clean.doLast { file(querydslSrcDir).deleteDir() }
+
+}
+
+project(':core') {
+	bootJar { enabled = false } // core 은 bootJar 로 패키징 할 필요 없음
+	jar { enabled = true }
+}
+
+project(':api-server') {
+	dependencies {
+		implementation project(":core")
+
+		// Excel
+		implementation('org.apache.poi:poi-ooxml:3.16') // .xlsx
+		implementation('org.apache.poi:poi:3.16') // .xls
+
+		// JWT
+		implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+		implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+		implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	}
+}
