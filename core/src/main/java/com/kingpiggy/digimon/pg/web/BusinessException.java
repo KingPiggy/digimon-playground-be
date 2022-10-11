@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  *  throw new BusinessException(ErrorCode.getMessage()
  *
  * @author SEUNGHOON
- * @version 0.0.1, 2022-06-05
+ * @version 0.1.0, 2022-06-05
  *
  */
 @NoArgsConstructor

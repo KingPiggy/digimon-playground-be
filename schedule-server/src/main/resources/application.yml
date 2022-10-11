@@ -9,10 +9,6 @@ spring:
 # local profile
 spring:
   profiles: local
-  servlet:
-    multipart:
-      max-file-size: 4000MB
-      max-request-size: 4000MB
   config:
     use-legacy-processing: true
 
@@ -20,10 +16,10 @@ server:
   error:
     whitelabel:
       enabled: false
-  port: 8090
+  port: 8091
 
 web:
-  address: "http://localhost:8090"
+  address: "http://localhost:8091"
 
 logging:
   level:

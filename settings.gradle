@@ -8,3 +8,5 @@ pluginManagement {
 rootProject.name = 'digimon-playground-be'
 include 'api-server'
 include 'core'
+include 'schedule-server'
+

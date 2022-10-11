@@ -3,7 +3,6 @@ package com.kingpiggy.digimon.pg.web;
 import com.kingpiggy.digimon.pg.enumclass.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -101,21 +100,6 @@ public class ControllerAdvisor {
         return ApiResponse.ERROR(
                 ErrorCode.METHOD_NOT_ALLOWED.getCode(),
                 ErrorCode.METHOD_NOT_ALLOWED.getMessage(),
-                e
-        );
-    }
-
-    /**
-     * Authentication 객체가 필요한 권한을 보유하지 않은 경우 발생합
-     */
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED)
-    @ExceptionHandler(AccessDeniedException.class)
-    public ApiResponse handleAccessDeniedException(AccessDeniedException e) {
-        log.error("handleAccessDeniedException", e);
-        return ApiResponse.ERROR(
-                ErrorCode.HANDLE_ACCESS_DENIED.getCode(),
-                ErrorCode.HANDLE_ACCESS_DENIED.getMessage(),
                 e
         );
     }
