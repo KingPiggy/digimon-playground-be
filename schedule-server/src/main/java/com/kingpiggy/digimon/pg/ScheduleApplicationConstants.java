@@ -18,5 +18,6 @@ package com.kingpiggy.digimon.pg;
 public interface ScheduleApplicationConstants {
 
     // Constants
+    String digimonApiUrl = "https://digimon-api.vercel.app/api/digimon";
 
 }

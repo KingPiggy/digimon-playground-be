@@ -2,6 +2,7 @@ package com.kingpiggy.digimon.pg;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * ScheduleApplication class.
@@ -17,7 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author : SEUNGHOON
  * @version : 0.1.0
  */
-
+@EnableScheduling
 @SpringBootApplication
 public class ScheduleApplication {
 

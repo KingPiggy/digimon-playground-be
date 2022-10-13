@@ -101,7 +101,7 @@ project(':api-server') {
 	}
 }
 
-project(':api-server') {
+project(':schedule-server') {
 	dependencies {
 		implementation project(":core")
 	}
