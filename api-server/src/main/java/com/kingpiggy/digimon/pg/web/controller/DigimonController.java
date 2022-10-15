@@ -35,9 +35,9 @@ public class DigimonController {
     }
 
     @GetMapping("/api/digimons/paging")
-    public ApiResponse getDigimonsPaging(@RequestParam(defaultValue = "0") Integer pageNo,
+    public ApiResponse getDigimonsPaging(@RequestParam(defaultValue = "1") Integer pageNo,
                                          @RequestParam(defaultValue = "10") Integer pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
         return ApiResponse.OK(digimonService.getDigimonsPaging(pageable));
     }
 
