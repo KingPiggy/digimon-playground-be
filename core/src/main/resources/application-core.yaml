@@ -1,0 +1,13 @@
+# core
+spring:
+  config:
+    activate:
+      on-profile: core
+  jpa:
+    hibernate:
+      direct: org.hibernate.dialect.MySQL5InnoDBDialect
+      ddl-auto: none
+  servlet:
+    multipart:
+      max-file-size: 4000MB
+      max-request-size: 4000MB

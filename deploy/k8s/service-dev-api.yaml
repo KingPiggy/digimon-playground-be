@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: digimon-pg-dev-api-service
+  namespace: dev
+spec:
+  selector:
+    app: digimon-pg-api-app
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
+  type: NodePort

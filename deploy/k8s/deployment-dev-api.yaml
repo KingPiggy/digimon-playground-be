@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digimon-pg-api-deployment
+  namespace: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: digimon-pg-api-app
+  template:
+    metadata:
+      labels:
+        app: digimon-pg-api-app
+    spec:
+      containers:
+        - name: digimon-pg-api-container
+          image: kingpiggy/digimon-pg-dev-api:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8090
+          env:
+            - name: SPRING_PROFILES_INCLUDE
+              value: core,dev

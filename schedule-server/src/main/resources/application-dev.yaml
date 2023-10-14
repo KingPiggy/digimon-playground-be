@@ -1,16 +1,13 @@
-# profile active
+# local
 spring:
-  profiles:
-    active: local
-    include: core
-
----
-
-# local profile
-spring:
-  profiles: local
   config:
-    use-legacy-processing: true
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://host.minikube.internal:3306/digimon_pg?serverTimezone=UTC
+    username: root
+    password: tmdgns2
 
 server:
   error:
@@ -27,7 +24,7 @@ logging:
       hibernate:
         type:
           descriptor:
-            sql: trace
+            sql: error
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
